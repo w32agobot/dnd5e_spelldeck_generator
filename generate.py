@@ -462,7 +462,6 @@ def generate_subcard(spell,textindex,outputfolder,subindex):
 
 
 def generate_pdf(spell,outputfolder):
-    print(spell['name'])
     generate_maincard(spell,outputfolder)
     if len(spell['text']) > 1:
         generate_subcard(spell,1,outputfolder,'_b_')
@@ -477,12 +476,15 @@ print('### Reading spells from xml files')
 spells = list()
 for spell_source in sources:
     read_spells(spells,spell_source)
+print('### Evaluate text lengths for double-sided spellcards')
 for spell in spells:
+    print("  Evaluate text lengths: " + str(spell['name']))
     condition_text(spell) 
 
 
 print('### Filter for classes')
-# filter unused
+# FILTER CLASSES
+# in this example, Cleric and Cleric (Knowledge) will be printed
 spells = [spell for spell in spells 
           if ('Cleric' in spell['classes']) 
           or ('Cleric (Knowledge)' in spell['classes'])]
@@ -490,6 +492,7 @@ spells = [spell for spell in spells
 print('### Generate individual spellcard PDF files')
 # generate pdfs
 for spell in spells:
+    print("  Generate single-sided PDF: " + str(spell['name']))
     generate_pdf(spell,dir_path+'\\out\\')
 
 
@@ -592,7 +595,7 @@ printdoc.new_page(currentpage_b,width = docwidth,height = docheight)
 placebackground(printdoc[currentpage_b],bgimage)
 
 for card in mydict:
-    print("Place card " + str(cardcount) + " on page " + str(pagecount))
+    print("  Place card: " + str(cardcount) + " on page " + str(pagecount))
     if cardcount == 9:
        cardcount = 0
        pagecount = pagecount + 1

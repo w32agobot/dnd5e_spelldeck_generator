@@ -123,6 +123,7 @@ def condition_text(spell):
 ## Output:  append spells to dictionary
 #####################################
 def read_spells(dictionary,spell_xml):
+   print(spell_xml)
    with open(spell_xml, 'r') as f:
         data = f.read()    
         for each in BeautifulSoup(data, "xml").find_all('spell'):
@@ -461,6 +462,7 @@ def generate_subcard(spell,textindex,outputfolder,subindex):
 
 
 def generate_pdf(spell,outputfolder):
+    print(spell['name'])
     generate_maincard(spell,outputfolder)
     if len(spell['text']) > 1:
         generate_subcard(spell,1,outputfolder,'_b_')
@@ -551,7 +553,7 @@ def placecard(page,cardpixmap,pos):
 ##
 ## If a spell has 1 or 3 single-sided cards with text, then _background.pdf is used as background
 ##
-print('### Generate print PDF files')
+print('### Generate printable A4 PDF file with 9 cards per page')
 mydict = list()
 for spell in spells:
     frontpdf = dir_path+'\\out\\'+spell['name'].replace("/","")+'.pdf'
@@ -590,7 +592,7 @@ printdoc.new_page(currentpage_b,width = docwidth,height = docheight)
 placebackground(printdoc[currentpage_b],bgimage)
 
 for card in mydict:
-    print("I am here, page " + str(pagecount) + " and card " + str(cardcount))
+    print("Place card " + str(cardcount) + " on page " + str(pagecount))
     if cardcount == 9:
        cardcount = 0
        pagecount = pagecount + 1

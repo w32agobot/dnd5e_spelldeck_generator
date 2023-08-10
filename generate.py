@@ -20,8 +20,6 @@ template_extra = '_template_extra.pdf'
 sources = ['FightClub5eXML/Sources/PlayersHandbook/spells-phb.xml',
            'FightClub5eXML/Sources/XanatharsGuideToEverything/spells-xge.xml']
 
-read_spells(spells,'')
-read_spells(spells,'spells-phb.xml')
 
 descriptionrect_a = fitz.Rect(12, 116.5, 168, 239.5)
 descriptionrect_b = fitz.Rect(12, 17, 168, 230)  
